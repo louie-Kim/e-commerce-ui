@@ -20,7 +20,7 @@ const NavBar = () => {
         />
         {/* tracking-wider: 글자 사이 간격 넓게 */}
         <p className="hidden md:block text-md font-medium tracking-wider">
-          Trend LAMA
+          Trend JY
         </p>
       </Link>
       {/* RIGHT */}
