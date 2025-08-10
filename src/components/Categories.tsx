@@ -57,27 +57,30 @@ const categories = [
 
 const Categories = () => {
   // http://localhost:3000/?category=bags&test=123&text=asdf 
+  // useSearchParams() :   브라우저 URL의 쿼리 파라미터를 "구독" -> 현재 페이지의 쿼리 스트링 가져옴
   const searchParams = useSearchParams();
-  console.log("searchParams>>>>>>>>>>>>>>", searchParams); // { 'category' => 'bags', 'test' => '123', 'text => asdf'  }
+  // console.log("searchParams>>>>>>>>>>>>>>", searchParams); // { 'category' => 'bags', 'test' => '123', 'text => asdf'  }
 
   // 클릭시 category.slug === selectedCategory -> 배경색 렌더링용
   const selectedCategory = searchParams.get("category");
-  console.log("selectedCategory", selectedCategory); //
+  // console.log("selectedCategory>>>>>>>>>>", selectedCategory); //
 
   // 경로주소를 잡아준다  http://localhost:3000/product =>  /product
   const pathname = usePathname();
-  console.log("경로 이름", pathname);
+  // console.log("경로 이름", pathname);
 
   const router = useRouter();
 
   // http://localhost:3000/?category=bags&test=123&text=asdf 
-  // 여기서 'category=gloves' 이거만 뽑아서 옴
+  // 여기서 'category=bags' 이거만 뽑아서 옴
   const handleChange = (value: string | null) => {
-    const params = new URLSearchParams(searchParams); // 이거 로깅 안됨??
+
+    const params = new URLSearchParams(searchParams); // 이거 로깅 안됨
 
     // URL 쿼리 파라미터 중 category 값만 value로 설정
     params.set("category", value || "all");
     //  { scroll: true } : 경로 이동후 스크롤을 맨위로 이동 
+    // 직접 경로 생성 후 -> push!!
     router.push(`${pathname}?${params.toString()}`, { scroll: false });
   };
 

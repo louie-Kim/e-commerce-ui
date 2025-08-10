@@ -21,4 +21,4 @@ export type ProductType = {
 };
 
 //  ProductType[] : 여기에 여러가지 상품이 들어간다
-export type ProductsType= ProductType[];
+export type ProductsType = ProductType[];
