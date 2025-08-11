@@ -1,4 +1,3 @@
-
 // 1개의 상품 타입
 export type ProductType = {
   id: string | number;
@@ -8,17 +7,27 @@ export type ProductType = {
   price: number;
   sizes: string[];
   colors: string[];
-/**
+  /**
  *  images: {
       gray: "/products/1g.png",
       purple: "/products/1p.png",
       green: "/products/1gr.png",
     },
  */
-// Record는 TypeScript의 유틸리티 ( 타입정의 )
-// Record<key, value>
+  // Record는 TypeScript의 유틸리티 ( 타입정의 )
+  // Record<key, value>
   images: Record<string, string>;
 };
 
 //  ProductType[] : 여기에 여러가지 상품이 들어간다
 export type ProductsType = ProductType[];
+
+export type CartItemType = ProductType & {
+  // ProductType + additional type
+  quantity: number;
+  selectedSize: string;
+  selectedColor: string;
+};
+
+// CartItemsType = CartItemType 객체들의 배열
+export type CartItemsType = CartItemType[]
