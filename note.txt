@@ -70,3 +70,18 @@ const key = "color";
 const obj = { [key]: "red" };
 console.log(obj); // { color: "red" }
 
+--------------------------------------------------------------
+
+??
+왼쪽 값이 null 또는 undefined일 때만 오른쪽 값을 실행(반환)하는 연산자
+
+let value = null ?? '기본값';
+console.log(value); // "기본값"
+
+value = undefined ?? '기본값';
+console.log(value); // "기본값"
+
+value = 0 ?? '기본값';
+console.log(value); // 0  // 0은 null이나 undefined가 아니므로 왼쪽 값 사용
+
+
