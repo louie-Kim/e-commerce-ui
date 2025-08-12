@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 // 1개의 상품 타입
 export type ProductType = {
   id: string | number;
@@ -31,3 +33,49 @@ export type CartItemType = ProductType & {
 
 // CartItemsType = CartItemType 객체들의 배열
 export type CartItemsType = CartItemType[]
+
+// schema validation
+export const shippingFormSchema = z.object({
+  // min(1,) : 최소 한글자 이상
+  name: z.string().min(1, "Name is required!"),
+  email: z.email().min(1, "Email is required!"),
+  phone: z
+    .string()
+    .min(7, "Phone number must be between 7 and 10 digits!")
+    .max(10, "Phone number must be between 7 and 10 digits!")
+    .regex(/^\d+$/, "Phone number must contain only numbers!"), // 전번에는 숫자 외의 문자가 포함되지 않도록
+  address: z.string().min(1, "Address is required!"),
+  city: z.string().min(1, "City is required!"),
+});
+
+export type ShippingFormInputs = z.infer<typeof shippingFormSchema>; 
+/**
+ * shippingFormSchema 를 타입스크립트 타입으로 만들어줌
+ * type ShippingFormInputs = {
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+  city: string;
+};
+
+ *  */ 
+
+
+export const paymentFormSchema = z.object({
+  cardHolder: z.string().min(1, "Card holder is required!"),
+  cardNumber: z
+    .string()
+    .min(16, "Card Number is required!")
+    .max(16, "Card Number is required!"),
+  expirationDate: z
+    .string()
+    .regex(
+      /^(0[1-9]|1[0-2])\/\d{2}$/,
+      "Expiration date must be in MM/YY format!"
+    ),
+  cvv: z.string().min(3, "CVV is required!").max(3, "CVV is required!"),
+});
+
+export type PaymentFormInputs = z.infer<typeof paymentFormSchema>;
+

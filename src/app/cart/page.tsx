@@ -1,8 +1,12 @@
 "use client";
 
-import { CartItemsType } from "@/types";
-import { ArrowRight } from "lucide-react";
+import PaymentForm from "@/components/PaymentForm";
+import ShippingForm from "@/components/ShippingForm";
+import { CartItemsType, ShippingFormInputs } from "@/types";
+import { ArrowRight, Trash2 } from "lucide-react";
+import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 
 const steps = [
   {
@@ -83,7 +87,10 @@ const CartPage = () => {
   const router = useRouter();
 
   // step= " " 값 캐치
-  const activeStep = parseInt(searchParams.get("step") || "1");
+  const activeStep = parseInt(searchParams.get("step") || "1"); // step=1 부터 시작
+
+  // const [shippingForm, setShippingForm] = useState();
+  const [shippingForm, setShippingForm] = useState<ShippingFormInputs>();
 
   return (
     <div className="flex flex-col gap-8 items-center justify-center mt-12">
@@ -120,10 +127,62 @@ const CartPage = () => {
       <div className="w-full flex flex-col lg:flex-row gap-16">
         {/* STEPS: 부모 너비의 7/12 = 약 58.33% */}
         <div className="w-full lg:w-7/12 shadow-lg border-1 border-gray-100 p-8 rounded-lg flex flex-col gap-8">
-          ???
+          {activeStep === 1 ? (
+            cartItems.map((item) => (
+              // single car item
+              <div className="flex items-center justify-between" key={item.id}>
+                {/* IMAGE AND DETAILS */}
+                <div className="flex gap-8">
+                  {/* IMAGE */}
+                  <div className="relative w-32 h-32 bg-gray-50 rounded-lg overflow-hidden">
+                    {/* item.images[] : 객체에서 [] → 키 로 값 꺼냄*/}
+                    {/* object-contain : 여백이 생김 */}
+                    <Image
+                      src={item.images[item.selectedColor]}
+                      alt={item.name}
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+                  {/* DETAILS */}
+                  <div className="flex flex-col justify-between">
+                    <div className="flex flex-col gap-1">
+                      <p className="text-sm font-medium">{item.name}</p>
+                      <p className="text-xs text-gray-500">
+                        Quantity: {item.quantity}
+                      </p>
+                      <p className="text-xs text-gray-500">
+                        Size: {item.selectedSize}
+                      </p>
+                      <p className="text-xs text-gray-500">
+                        Color: {item.selectedColor}
+                      </p>
+                    </div>
+                    <p className="font-medium">${item.price.toFixed(2)}</p>
+                  </div>
+
+                  <div className=""></div>
+                </div>
+                {/* DELETE BUTTON */}
+                {/* 동그라미 안에 휴지통 버튼 */}
+                <button className="w-8 h-8 rounded-full bg-red-300 hover:bg-red-200 transition-all duration-300 text-red-400 flex items-center justify-center cursor-pointer">
+                  <Trash2 className="w-4 h-4" />
+                </button>
+              </div>
+            ))
+          ) : activeStep === 2 ? (
+            <ShippingForm setShippingForm={setShippingForm}/>
+          ) : activeStep === 3 && shippingForm ? (
+            <PaymentForm />
+          ) : (
+            <p className="text-sm text-gray-500">
+              Please fill in the shipping form to continue.
+            </p>
+          )}
         </div>
         {/* DETAILS: 부모 너비의 5/12 = 약 41.67%*/}
-        <div className="w-full lg:w-5/12 shadow-lg border-1 border-gray-100 p-8 ounded-lg flex flex-col gap-8">
+        {/* h-max : 컨텐트 수 만큼 길게 */}
+        <div className="w-full lg:w-5/12 shadow-lg border-1 border-gray-100 p-8 ounded-lg flex flex-col gap-8 h-max">
           <h2 className="font-semibold">Cart Details</h2>
           <div className="flex flex-col gap-4">
             <div className="flex justify-between text-sm">
@@ -154,10 +213,16 @@ const CartPage = () => {
               </p>
             </div>
           </div>
-          <button className="w-full bg-gray-800 hover:bg-gray-900 transition-all duration-300 text-white p-2 rounded-lg cursor-pointer flex items-center justify-center gap-2">
-            Continue
-            <ArrowRight className="w-3 h-3" />
-          </button>
+          {/* const activeStep = parseInt(searchParams.get("step") || "1"); // /cart로 처음오면 step=1 부터 시작 */}
+          {activeStep === 1 && (
+            <button
+              onClick={() => router.push("/cart?step=2", { scroll: false })}
+              className="w-full bg-gray-800 hover:bg-gray-900 transition-all duration-300 text-white p-2 rounded-lg cursor-pointer flex items-center justify-center gap-2"
+            >
+              Continue
+              <ArrowRight className="w-3 h-3" />
+            </button>
+          )}
         </div>
       </div>
     </div>
