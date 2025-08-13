@@ -31,7 +31,10 @@ const ShippingForm = ({
   const router = useRouter();
 
   const handleShippingForm: SubmitHandler<ShippingFormInputs> = (data) => {
-    // setShippingForm(data); // 부모 컴포넌트로 데이터 전달
+     console.log("ShippingForm 제출 데이터:", data);
+    setShippingForm(data); // 부모 컴포넌트로 데이터 전달
+    console.log("to step 3 >>>>>>>>>>>>>>>");
+    
     router.push("/cart?step=3", { scroll: false });
   };
 
@@ -49,7 +52,7 @@ const ShippingForm = ({
           type="text"
           id="name"
           placeholder="Jon doe"
-          {...register("name")} // "name"으로 input과 연결 + shippingFormSchema.name 하고도 연결 = 검증
+          {...register("name")} // id = "name"으로 input과 연결 + shippingFormSchema.name 하고도 연결 = 검증
         />
         {errors.name && (
           <p className="text-xs text-red-500">{errors.name.message}</p>

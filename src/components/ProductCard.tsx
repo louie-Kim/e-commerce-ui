@@ -1,5 +1,6 @@
 "use client";
 
+import useCartStore from "@/Stores/cartStore";
 import { ProductType } from "@/types";
 import { ShoppingCart } from "lucide-react";
 import Image from "next/image";
@@ -7,6 +8,7 @@ import Link from "next/link";
 import { log } from "node:console";
 import { text } from "node:stream/consumers";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 /**
  * export type ProductType = {
   id: string | number;
@@ -41,13 +43,13 @@ const ProductCard = ({ product }: { product: ProductType }) => {
 
    */
 
-  
   const [productTypes, setProductTypes] = useState({
     // productTypes 의 초기값
     size: product.sizes[0],
     color: product.colors[0],
   });
 
+  const { addToCart } = useCartStore();
 
   const handleProductType = ({
     type,
@@ -56,7 +58,7 @@ const ProductCard = ({ product }: { product: ProductType }) => {
     type: "size" | "color";
     value: string;
   }) => {
-    alert(`type: ${type}, value: ${value}`); // 로그 대신 알림
+    // alert(`type: ${type}, value: ${value}`); // 로그 대신 알림
     // console.log("type and value>>>>>>>>>>>>>", `type: ${type}, value: ${value}`);
     setProductTypes((prev) => ({
       //  handleProductType({ type: "color", value: color })
@@ -71,6 +73,28 @@ const ProductCard = ({ product }: { product: ProductType }) => {
        */
       [type]: value,
     }));
+  };
+
+  const handleAddToCart = () => {
+    /**
+     * 
+     *product: ProductType
+     
+     *CartItemType:
+     *ProductType & {
+      quantity: number;
+      selectedSize: string;
+      selectedColor: string;
+      };
+     */
+    addToCart({
+      ...product,
+      // 실제 수량을 늘리는 곳
+      quantity: 1,
+      selectedSize: productTypes.size,
+      selectedColor: productTypes.color,
+    });
+    toast.success("Product added to Cart");
   };
 
   return (
@@ -143,7 +167,10 @@ const ProductCard = ({ product }: { product: ProductType }) => {
         {/* PRICE AND CART BUTTON*/}
         <div className="flex items-center justify-between">
           <p className="font-medium">${product.price.toFixed(2)}</p>
-          <button className="ring-1 ring-gray-200 shadow-lg rounded-md px-2 py-1 text-sm cursor-pointer hover:text-white hover:bg-black transition-all  duration-300 flex items-center gap-2">
+          <button
+            onClick={handleAddToCart}
+            className="ring-1 ring-gray-200 shadow-lg rounded-md px-2 py-1 text-sm cursor-pointer hover:text-white hover:bg-black transition-all  duration-300 flex items-center gap-2"
+          >
             <ShoppingCart className="w-4 h-4" />
             Add to Cart
           </button>

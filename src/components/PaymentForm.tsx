@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 const PaymentForm = () => {
+
+  // React Hook Form + Zod
   const {
     register,
     handleSubmit,
@@ -34,7 +36,7 @@ const PaymentForm = () => {
           type="text"
           id="cardHolder"
           placeholder="John Doe"
-          {...register("cardHolder")}
+          {...register("cardHolder")} //id = "cardHolder"으로 input과 연결 + paymentFormSchema.cardHolder 하고도 연결 = 검증
         />
         {errors.cardHolder && (
           <p className="text-xs text-red-500">{errors.cardHolder.message}</p>

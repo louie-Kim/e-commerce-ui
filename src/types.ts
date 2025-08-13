@@ -79,3 +79,49 @@ export const paymentFormSchema = z.object({
 
 export type PaymentFormInputs = z.infer<typeof paymentFormSchema>;
 
+/**
+ * PaymentFormInputs
+ * 
+ * type PaymentFormInputs = {
+  cardHolder: string;
+  cardNumber: string;
+  expirationDate: string;
+  cvv: string;
+  };
+
+ */
+
+export type CartStoreStateType = {
+  cart: CartItemsType;
+  // hasHydrated: boolean;
+};
+
+/**
+ * CartStoreStateType
+ * type CartStoreStateType = {
+  cart: Array<{
+    // ProductType
+    id: string | number;
+    name: string;
+    shortDescription: string;
+    description: string;
+    price: number;
+    sizes: string[];
+    colors: string[];
+    images: Record<string, string>;
+
+   // + CartItemType
+    quantity: number;
+    selectedSize: string;
+    selectedColor: string;
+  }>;
+};
+
+ */
+
+// action types
+export type CartStoreActionsType = {
+  addToCart: (product: CartItemType) => void;
+  removeFromCart: (product: CartItemType) => void;
+  clearCart: () => void;
+};
