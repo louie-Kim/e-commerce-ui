@@ -119,7 +119,7 @@ const products: ProductsType = [
 // category from Homepage compo
 const ProductList = ({ category, params }: { category: string, params:"homepage" | "products"}) => {
 
-  // console.log("ProductList compo category>>>>>>>>>>>", category);
+  console.log("ProductList compo category>>>>>>>>>>>", category);
   
 
   return (

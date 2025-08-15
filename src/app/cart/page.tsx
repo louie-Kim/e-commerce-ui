@@ -8,6 +8,7 @@ import { ArrowRight, Trash2 } from "lucide-react";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 const steps = [
   {
@@ -93,10 +94,8 @@ const CartPage = () => {
   // const [shippingForm, setShippingForm] = useState();
   const [shippingForm, setShippingForm] = useState<ShippingFormInputs>();
 
-  const { cart, removeFromCart } = useCartStore()
-  
+  const { cart, removeFromCart } = useCartStore();
 
-  
   return (
     <div className="flex flex-col gap-8 items-center justify-center mt-12">
       {/* TITLE */}
@@ -136,7 +135,10 @@ const CartPage = () => {
             // cart : F12 -> application에서 확인
             cart.map((item) => (
               // single car item
-              <div className="flex items-center justify-between" key={item.id}>
+              <div
+                className="flex items-center justify-between"
+                key={item.id + item.selectedColor + item.selectedSize} //
+              >
                 {/* IMAGE AND DETAILS */}
                 <div className="flex gap-8">
                   {/* IMAGE */}
@@ -171,7 +173,13 @@ const CartPage = () => {
                 </div>
                 {/* DELETE BUTTON */}
                 {/* 동그라미 안에 휴지통 버튼 */}
-                <button onClick={()=>removeFromCart(item)} className="w-8 h-8 rounded-full bg-red-300 hover:bg-red-200 transition-all duration-300 text-red-400 flex items-center justify-center cursor-pointer">
+                <button
+                  onClick={() => {
+                    removeFromCart(item);
+                    toast.success("product removed");
+                  }}
+                  className="w-8 h-8 rounded-full bg-red-300 hover:bg-red-200 transition-all duration-300 text-red-400 flex items-center justify-center cursor-pointer"
+                >
                   <Trash2 className="w-4 h-4" />
                 </button>
               </div>

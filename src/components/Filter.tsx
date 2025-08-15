@@ -3,24 +3,22 @@
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
 const Filter = () => {
-  const searchParams = useSearchParams();
-
-  // { 'category' => 'bags', 'sort' => 'newest' }
-  console.log("Filter component searchParams", searchParams);
-
   
+  // url 입력하면 자동으로 useSearchParams() 가 쿼리 스트링읽음
+  const searchParams = useSearchParams(); 
+  // { 'category' => 'bags', 'sort' => 'newest' }
+  console.log("Filter component searchParams", searchParams); // 1. ReadonlyURLSearchParams {} 처음
+
+
   const pathname = usePathname();
   const router = useRouter();
-
 
   // http://localhost:3000/products?category=accessories&sort=oldest
   // sort=oldest : 이 쿼리매개변수에 값을 넣어줌
   const handleFilter = (value: string) => {
-    console.log("selected value???????????", value);
-    
-
-    const params = new URLSearchParams(searchParams); // 이거 로깅 안됨
-    params.set("sort", value ); // sort= 캐치 + 값넣기
+    // alert(`soring!! ${value}`);
+    const params = new URLSearchParams(searchParams); // 2. ReadonlyURLSearchParams {} 복사
+    params.set("sort", value); // sort= 캐치 + 값넣기   // 3. http://localhost:3000/products?sort=oldest
     router.push(`${pathname}?${params.toString()}`, { scroll: false });
   };
 
@@ -31,7 +29,7 @@ const Filter = () => {
         name="sort"
         id="sort"
         className="ring-1 ring-gray-200 shadow-md p-1 rounded-sm"
-        onChange={(e)=>handleFilter(e.target.value)}
+        onChange={(e) => handleFilter(e.target.value)}
       >
         {/* e.target.value === <option value=" ">*/}
         <option value="newest">Newest</option>

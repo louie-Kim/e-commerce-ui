@@ -7,12 +7,12 @@ const ProductPage = async ({
   searchParams: Promise<{ category: string }>; // Promise<T>
 }) => {
   const category = (await searchParams).category;
-//   console.log("ProductPage compo category>>>>>>>>>>>", category);
+  console.log("ProductPage compo category>>>>>>>>>>>", category);
 
   return (
     <div className="">
       <ProductList category={category} params="products"/>
-      productPage
+      products.page.tsx
     </div>
   );
 };

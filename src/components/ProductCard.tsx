@@ -100,7 +100,7 @@ const ProductCard = ({ product }: { product: ProductType }) => {
   return (
     <div className="shadow-lg rounded-lg overflow-hidden">
       {/* IMAGE */}
-      <Link href={`/product/${product.id}`}>
+      <Link href={`/products/${product.id}`}>
         <div className="relative aspect-[2/3]">
           {/* object-cover: 부모 컨테이너의 크기에 맞게 '잘리더라도' '꽉' 차도록 <=> 
               object-contain: 부모 영역과 비율이 맞지 않으면 여백이 생김*/}
