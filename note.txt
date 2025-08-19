@@ -195,3 +195,54 @@ Hydration 후) 데이터를 불러온 상태
   return <button onClick={handleClick}>Click me</button>;
 
 
+
+--------------------------------------------------------------------
+
+[...] 형태의 catch-all 라우트는 반드시 string[] 타입의 slug를 전달합니다.
+
+app/shop/[...slug]/page.tsx
+
+| URL            | `params` 내용                 |
+| -------------- | --------------------------- |
+| `/shop/a`      | `{ slug: ['a'] }`           |
+| `/shop/a/b`    | `{ slug: ['a', 'b'] }`      |
+| `/shop/a/b/c`  | `{ slug: ['a', 'b', 'c'] }` |
+
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ slug: string[] }>
+}) {
+  const { slug } = await params;
+  // 예: ['a', 'b']
+  return <div>Slug segments: {slug.join(', ')}</div>;
+}
+
+                             |
+[[...]] 형태의 optional catch-all 라우트는 slug가 전달되지 않을 수 있어 string[] | undefined
+
+app/shop/[[...slug]]/page.tsx
+
+| URL            | `params` 내용            |
+| -------------- | ---------------------- |
+| `/shop`        | `{ slug: undefined }`  |
+| `/shop/a`      | `{ slug: ['a'] }`      |
+| `/shop/a/b`    | `{ slug: ['a', 'b'] }` |
+
+
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ slug?: string[] }>
+}) {
+  const { slug } = await params;
+  if (!slug) {
+    return <div>No slug provided — at root of shop</div>;
+  }
+  return <div>Slug segments: {slug.join(' / ')}</div>;
+}
+
+
+
+
+

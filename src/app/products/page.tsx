@@ -12,7 +12,7 @@ const ProductPage = async ({
   return (
     <div className="">
       <ProductList category={category} params="products"/>
-      products.page.tsx
+      products/page.tsx
     </div>
   );
 };

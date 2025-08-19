@@ -17,8 +17,10 @@ const ProductInteraction = ({
 }) => {
   const router = useRouter();
   const pathname = usePathname();
+  console.log("ProductInteraction pathname",pathname);
+  
   const searchParams = useSearchParams();
-  console.log("Product interaction compo searchParams", searchParams); // 1. ReadonlyURLSearchParams {} 처음
+  console.log("Product interaction compo searchParams>>>>>>>>>>", searchParams); // 1. ReadonlyURLSearchParams {} 처음
 
   const [quantity, setQuantity] = useState(1);
 
