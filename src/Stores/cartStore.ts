@@ -11,7 +11,7 @@ const useCartStore = create<CartStoreStateType & CartStoreActionsType>()(
       // initial state : CartStoreStateType type
       // state.cart = cart:[]
       cart: [],
-      // 
+      //
       hasHydrated: false,
       // zustand action functions
       // addToCart: (product: CartItemType) => void;
@@ -21,12 +21,15 @@ const useCartStore = create<CartStoreStateType & CartStoreActionsType>()(
           // findIndex는 **배열에서 조건을 만족하는  "인덱스 번호"*를 반환
           // 없으면 -1 반환
           const existingIndex = state.cart.findIndex(
-            // 제품 id , color가 같으면 같은 제품으로 취급
+            // 제품 id , color, size 가 같으면 같은 제품으로 취급
             (p) =>
-              p.id === product.id && p.selectedColor === product.selectedColor
+              p.id === product.id &&
+              p.selectedColor === product.selectedColor &&
+              p.selectedSize === product.selectedSize
           );
 
           // 이미 있는 상품이면 : existingIndex = 0,1,2,3, ......
+          // findIndex() 배열에 찾는값이 없으면 -1 반환
 
           // already have the item
           /**
@@ -85,9 +88,9 @@ const useCartStore = create<CartStoreStateType & CartStoreActionsType>()(
 
        * 
        */
+      // removeFromCart: (product: CartItemType) => void;
       removeFromCart: (product) =>
         set((state) => ({
-          
           cart: state.cart.filter(
             (p) =>
               !(
@@ -103,13 +106,14 @@ const useCartStore = create<CartStoreStateType & CartStoreActionsType>()(
       // 개발자 도구 -> application -> http://localhost:3000 에서 확인가능,
       name: "cart", // localStorage key
       storage: createJSONStorage(() => localStorage),
-      // hydration 동안 ( 새로 고침 ): 장바구니 숫자 0 -> 2 이렇게 안되고 바로 2 이렇게 나옴 
-      // 로컬스토리지에 저장돼 있던 상태를 불러올 때 자동으로 호출
-      onRehydrateStorage: () => (state) =>{
-        if(state){
+      // persist가 localStorage에서 기존 cart 상태를 읽어오고나서 -> hasHydrated = true
+      // hydration 동안 ( 새로 고침 ): 장바구니 숫자 0 -> 2 이렇게 안되고 바로 2 이렇게 나옴
+      // 로컬스토리지에 저장돼 있던 상태를 불러올 때 자동으로 호출 -> UI 깜빡임 방지
+      onRehydrateStorage: () => (state) => {
+        if (state) {
           state.hasHydrated = true;
         }
-      } 
+      },
     }
   )
 );

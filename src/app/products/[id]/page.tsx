@@ -158,7 +158,7 @@ export const generateMetadata = async ({
   const product = getProductById(id);
   return {
     // type of metadata
-    // layout.tsx : metadata 에 덮어써져 나옴
+    // layout.tsx : metadata 에 덮어씀
     /**
      * <Head>
      * <title>Adidas CoreFit T-Shirt</title>

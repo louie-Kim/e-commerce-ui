@@ -21,7 +21,7 @@ export type ProductType = {
   images: Record<string, string>;
 };
 
-//  ProductType[] : 여기에 여러가지 상품이 들어간다
+//  여러개의 ProductType 객체들이 [] 로 ProductsType에 들어간다
 export type ProductsType = ProductType[];
 
 export type CartItemType = ProductType & {
@@ -92,7 +92,7 @@ export type PaymentFormInputs = z.infer<typeof paymentFormSchema>;
  */
 
 
-// product → CartItemType → CartItemsType → CartStoreStateType
+// product → CartItemType[] → CartItemsType → CartStoreStateType
 export type CartStoreStateType = {
   cart: CartItemsType;
   hasHydrated: boolean;
@@ -100,6 +100,7 @@ export type CartStoreStateType = {
 
 /**
  * CartStoreStateType
+ * 
  * type CartStoreStateType = {
   cart: Array<{
     // ProductType
@@ -122,8 +123,27 @@ export type CartStoreStateType = {
  */
 
 // action types
+// 타입 →  store에서 구현 -> ProductCard 에서 사용
 export type CartStoreActionsType = {
   addToCart: (product: CartItemType) => void;
   removeFromCart: (product: CartItemType) => void;
   clearCart: () => void;
 };
+
+/**
+ * addToCart({
+  id: 1,
+  name: "티셔츠",
+  shortDescription: "간단한 설명",
+  description: "자세한 설명",
+  price: 20000,
+  sizes: ["S", "M", "L"],
+  colors: ["Red", "Blue"],
+  images: { red: "/img/red.png", blue: "/img/blue.png" },
+  
+  quantity: 1,
+  selectedSize: "M",
+  selectedColor: "Red",
+});
+
+ */

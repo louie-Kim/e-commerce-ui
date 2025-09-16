@@ -2,7 +2,7 @@ import ProductList from "@/components/ProductList"
 import Image from "next/image"
 /**
  * client 컴포넌트에서는 useSearchParams() 사용해서 searchParams 얻지만
- * next.js page.tsx에서는 searchParams사용해서 바로 fetching 가능
+ * next.js page.tsx에서는 searchParams사용해서 바로 category=jackets 캐치 가능
  * 쿼리스트링 중에서 category 값만 감지
  */
 const Homepage = async ({

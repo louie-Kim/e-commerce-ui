@@ -56,14 +56,17 @@ const categories = [
 ];
 
 const Categories = () => {
+  // url 감시중...
   const searchParams = useSearchParams(); // 1. ReadonlyURLSearchParams {} 처음
-  console.log("searchParams>>>>>>>>>>>>>>", searchParams); // { 'category' => 'bags', 'test' => '123', 'text => asdf'  }
+  console.log("Categories compo searchParams>>>>>>>>>>>>>>", searchParams); // { 'category' => 'bags', 'test' => '123', 'text => asdf'  }
 
   // 클릭시 category.slug === selectedCategory -> 배경색 렌더링용
   const selectedCategory = searchParams.get("category");
   console.log("selectedCategory>>>>>>>>>>", selectedCategory); //
 
   const pathname = usePathname();
+  console.log("pathname", pathname); // "/"
+  
 
   const router = useRouter();
 
@@ -73,11 +76,12 @@ const Categories = () => {
 
     const params = new URLSearchParams(searchParams);// 2. ReadonlyURLSearchParams {} 복사
 
-    // URL 쿼리 파라미터 중 category 값만 value로 설정
+    // URL 쿼리 파라미터 중 category 값만 value로 설정!
     params.set("category", value || "all"); //http://localhost:3000/?category=jackets
     //  { scroll: true } : 경로 이동후 스크롤을 맨위로 이동 
     // alert("쿼리 스트링 작성!!!!!!!")
     router.push(`${pathname}?${params.toString()}`, { scroll: false });
+    // category=value 만 만듬 -> Homepage 에서 value 캐치! -> ProductList 로 value 전달 -> value값으로 Link 생성
   };
 
   return (

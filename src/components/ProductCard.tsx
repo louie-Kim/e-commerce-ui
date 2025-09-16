@@ -5,9 +5,7 @@ import { ProductType } from "@/types";
 import { ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { log } from "node:console";
-import { text } from "node:stream/consumers";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { toast } from "react-toastify";
 /**
  * export type ProductType = {
@@ -58,7 +56,7 @@ const ProductCard = ({ product }: { product: ProductType }) => {
     type: "size" | "color";
     value: string;
   }) => {
-    // alert(`type: ${type}, value: ${value}`); // 로그 대신 알림
+    alert(`type: ${type}, value: ${value}`); // 로그 대신 알림
     // console.log("type and value>>>>>>>>>>>>>", `type: ${type}, value: ${value}`);
     setProductTypes((prev) => ({
       //  handleProductType({ type: "color", value: color })
@@ -66,8 +64,8 @@ const ProductCard = ({ product }: { product: ProductType }) => {
       // 이전 값 + 바뀐값 : 컬러 선택시, 기존 사이즈는 유지
       ...prev,
       /**
-       * type이 "color" → { color: value }
-         type이 "size" → { size: value }
+       * type이 "color" → { color: value : e.target.value }
+         type이 "size" → { size: value:  }
          동적으로 key 이름 정함
          bracket notation!!
        */

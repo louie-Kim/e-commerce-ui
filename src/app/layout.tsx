@@ -26,10 +26,10 @@ export const metadata: Metadata = {
   // title: "Trend - JY Clothes",
    title: {
     default: "Trend - JY Clothes",
-    // 상품선택후 : product?.name | JY Clothes
-    template: "%s | JY Clothes",
+    // 상품선택후 : product?.name | ?
+    template: "%s | ?",
   },
-  description: "Trending fashion with JY store",
+  description: "JY store",
 };
 
 export default function RootLayout({
