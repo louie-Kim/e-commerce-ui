@@ -147,14 +147,14 @@ export const generateMetadata = async ({
   params,
 }: {
   // params: { id: string };
-  params: Promise<{ id: string }>
+  params: Promise<{ id: string }>;
 }) => {
   // console.log("상품아이디 params", params);
 
   // TODO: get a product from DB
   // TEMPORARY
   const { id } = await params; // params가 Promise일 수 있음
-  
+
   const product = getProductById(id);
   return {
     // type of metadata
@@ -172,26 +172,11 @@ export const generateMetadata = async ({
 
 type PageProps = {
   params: { id: string };
-  // searchParams?: { color?: string; size?: string };
   searchParams?: Promise<{ color?: string; size?: string }>;
 };
 
-// const ProductPage = async ({
-//   params,
-//   searchParams,
-// }: {
-//   params: Promise<{ id: string }>;
-//   searchParams: Promise<{ color: string; size: string }>;
-// }) => {
-
-// const ProductPage = async (props: PageProps) => {
 const ProductPage = async ({ params, searchParams }: PageProps) => {
-  //searchParams from ProductInteraction.tsx: onClick={() => handleTypeChange("color", color), ("color", color)
-  // router.push(`${pathname}?${params.toString()}`, { scroll: false }); = http://localhost:3000/products/2?size=xl&color=gray
-
-  // const { size, color } = await searchParams; // 쿼리값 캐치!
-  // console.log("선택하신 >>>>>>>>>> size, color  >>>>>", size, color);
-
+  
   const { id } = await params;
   console.log("[id] >>>>>>>>>>>>>>>>>>>>>>", id);
 
@@ -200,11 +185,13 @@ const ProductPage = async ({ params, searchParams }: PageProps) => {
   const product = getProductById(id);
   if (!product) return notFound();
 
-  // 초기 사이즈 색상 세팅
-  // const selectedSize = size || (product.sizes[0] as string);
-  // const selectedColor = color || (product.colors[0] as string);
+  console.log(product.colors[0]);
+  
+  
+  // 최초 렌더링시  product.sizes[0];, product.colors[0]; 을 ProductInteraction 에 내려준다
+  // 이후 ProductInteraction 에서 쿼리스트링을 만들면 ProductInteraction에서 sp.size , sp.color 룰 받아 상품 컬러, 사이즈를 렌더링함
 
-  //searchParams from ProductInteraction.tsx: onClick={() => handleTypeChange("color", color), ("color", color)
+  // searchParams from ProductInteraction.tsx: onClick={() => handleTypeChange("color", color), ("color", color)
   // router.push(`${pathname}?${params.toString()}`, { scroll: false }); = http://localhost:3000/products/2?size=xl&color=gray
   const selectedSize = sp.size ?? product.sizes[0];
   const selectedColor = sp.color ?? product.colors[0];
@@ -234,7 +221,7 @@ const ProductPage = async ({ params, searchParams }: PageProps) => {
         <p className="text-gray-500">{product.description}</p>
         <h2 className="text-2xl font-semibold">${product.price.toFixed(2)}</h2>
         {/* select size, color, quantity , button: add to cart, buy this item */}
-        <div className="flex ring-1 ring-gray-500 rounded-md p-2 border-b-gray-800 shadow-2xl">
+        <div className="flex ring-2 ring-gray-500 rounded-md p-2 border-b-gray-800 shadow-2xl">
           <ProductInteraction
             product={product}
             selectedSize={selectedSize}

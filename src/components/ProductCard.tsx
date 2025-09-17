@@ -5,7 +5,7 @@ import { ProductType } from "@/types";
 import { ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import {  useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 /**
  * export type ProductType = {
@@ -24,6 +24,7 @@ import { toast } from "react-toastify";
 const ProductCard = ({ product }: { product: ProductType }) => {
   // console.log("상품색..", product.images[product.colors[0]]);
   // console.log("상품색..", product.images);
+  // console.log("상품..", product);
 
   /**
    * product.images[product.colors[0]]
@@ -56,16 +57,16 @@ const ProductCard = ({ product }: { product: ProductType }) => {
     type: "size" | "color";
     value: string;
   }) => {
-    alert(`type: ${type}, value: ${value}`); // 로그 대신 알림
+    // alert(`type: ${type}, value: ${value}`); // 로그 대신 알림
     // console.log("type and value>>>>>>>>>>>>>", `type: ${type}, value: ${value}`);
     setProductTypes((prev) => ({
-      //  handleProductType({ type: "color", value: color })
       //  handleProductType({ type: "size", value: e.target.value })
+      //  handleProductType({ type: "color", value: color })
       // 이전 값 + 바뀐값 : 컬러 선택시, 기존 사이즈는 유지
       ...prev,
       /**
-       * type이 "color" → { color: value : e.target.value }
-         type이 "size" → { size: value:  }
+         type이 "size" → { size   , value: e.target.value  }
+       * type이 "color" → { color , value: color }
          동적으로 key 이름 정함
          bracket notation!!
        */
@@ -146,7 +147,7 @@ const ProductCard = ({ product }: { product: ProductType }) => {
                   key={color}
                   className={`cursor-pointer border-1 ${
                     productTypes.color === color
-                      ? "border-gray-400"
+                      ? "border-garay-600"
                       : "border-gray-200"
                   } rounded-full p-[1.2px]`}
                   onClick={() =>
@@ -154,7 +155,7 @@ const ProductCard = ({ product }: { product: ProductType }) => {
                   }
                 >
                   <div
-                    className="w-[14px] h-[14px] rounded-full"
+                    className="w-[15px] h-[15px] rounded-full"
                     style={{ backgroundColor: color }}
                   />
                 </div>

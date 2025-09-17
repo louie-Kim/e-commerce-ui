@@ -57,8 +57,8 @@ const categories = [
 
 const Categories = () => {
   // url 감시중...
-  const searchParams = useSearchParams(); // 1. ReadonlyURLSearchParams {} 처음
-  console.log("Categories compo searchParams>>>>>>>>>>>>>>", searchParams); // { 'category' => 'bags', 'test' => '123', 'text => asdf'  }
+  const searchParams = useSearchParams(); // 1. ReadonlyURLSearchParams {} : 쿼리 스트링 을 담을 수 있는 객체
+  console.log("Categories compo searchParams>>>>>>>>>>>>>>", searchParams); // { 'category' => 'bags', 'test' => '123', 'text => asdf'  } 
 
   // 클릭시 category.slug === selectedCategory -> 배경색 렌더링용
   const selectedCategory = searchParams.get("category");

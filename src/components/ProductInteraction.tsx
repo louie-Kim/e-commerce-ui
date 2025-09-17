@@ -6,6 +6,8 @@ import { Minus, Plus, PlusCircle, ShoppingCart } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
+
+// 쿼리스트링(URLSearchParams)을 직접 만들어주는 역할
 const ProductInteraction = ({
   product,
   selectedSize,
@@ -20,15 +22,16 @@ const ProductInteraction = ({
   console.log("ProductInteraction pathname",pathname);
   
   const searchParams = useSearchParams();
-  console.log("Product interaction compo searchParams>>>>>>>>>>", searchParams); // 1. ReadonlyURLSearchParams {} 처음
+  console.log("Product interaction compo searchParams>>>>>>>>>>", searchParams); // 1. ReadonlyURLSearchParams {}  :  쿼리 스트링 을 담을 수 있는 객체
 
   const [quantity, setQuantity] = useState(1);
 
   const { addToCart } = useCartStore();
 
-  // const handleTypeChange = (type: "size" | "color", value: string) => {
+  // handleTypeChange("size", size)
+  // handleTypeChange("color", color)
   const handleTypeChange = (type: string, value: string) => {
-    const params = new URLSearchParams(searchParams.toString()); // 2. ReadonlyURLSearchParams {} 복사
+    const params = new URLSearchParams(searchParams.toString()); // 2. ReadonlyURLSearchParams {}
     params.set(type, value); // 3. http://localhost:3000/products/2?size=xl&color=green
     router.push(`${pathname}?${params.toString()}`, { scroll: false });
   };

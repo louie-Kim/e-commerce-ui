@@ -9,14 +9,16 @@ const ShoppingCartIcon = () => {
   const { cart, hasHydrated } = useCartStore();
 
   // console.log("장바구니 아이콘's 숫자", cart);
-  // console.log("장바구니 hasHydrated", hasHydrated);
-  
+  // hasHydrated : false -> 로컬스토리지에 저장돼 있던 상태 불러오고 true
+  console.log("장바구니 hasHydrated", hasHydrated);
+
   // 로컬 스토리지에서 state 블러오는 동안 UI표시 안함.
   // hasHydrated = false -> true
-  if(!hasHydrated) return null
+  if (!hasHydrated) {
+    console.log("hydrating!!");
+    return null;
+  }
   // state 다 불러 오면 UI 표시
-
-
 
   return (
     // relative 기준으로 -> absolute 자리 잡음

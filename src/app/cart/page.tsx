@@ -84,7 +84,7 @@ const steps = [
 const CartPage = () => {
   // http://localhost:3000/cart?step=2
   const searchParams = useSearchParams();
-  console.log("CartPage compo searchParams", searchParams); // { 'step' => '2' }
+  console.log("CartPage compo searchParams", searchParams); //  ReadonlyURLSearchParams {} : 쿼리 스트링 을 담을 수 있는 객체 { 'step' => '2' }
 
   const router = useRouter();
 

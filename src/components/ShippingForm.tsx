@@ -35,7 +35,7 @@ const ShippingForm = ({
     setShippingForm(data); // 부모 컴포넌트로 데이터 전달
     console.log("to step 3 >>>>>>>>>>>>>>>");
     
-    router.push("/cart?step=3", { scroll: false });
+    router.push("/cart?step=3", { scroll: false }); // CartPage 에서 step=3 캐치
   };
 
   return (

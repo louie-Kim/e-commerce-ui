@@ -19,7 +19,8 @@ const PaymentForm = () => {
   const router = useRouter();
 
   const handlePaymentForm: SubmitHandler<PaymentFormInputs> = (data) => {
-    
+    alert("3단계 완료!!")
+    console.log("PaymentForm 제출 데이터:", data);
   };
 
   return (
@@ -96,7 +97,7 @@ const PaymentForm = () => {
         type="submit"
         className="w-full bg-gray-800 hover:bg-gray-900 transition-all duration-300 text-white p-2 rounded-lg cursor-pointer flex items-center justify-center gap-2"
       >
-        Checkout
+        Check out
         <ShoppingCart className="w-3 h-3" />
       </button>
     </form>
